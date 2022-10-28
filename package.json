@@ -1,0 +1,64 @@
+{
+  "name": "invoice_up_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./bin/www",
+    "lint:fix": "eslint --fix --ext .js, src",
+    "prepare": "husky install",
+    "swagger-autogen": "node ./swagger/swagger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rennerborges/wtmi_api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rennerborges/wtmi_api/issues"
+  },
+  "homepage": "https://github.com/rennerborges/wtmi_api#readme",
+  "dependencies": {
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "express": "^4.17.3",
+    "git-commit-msg-linter": "^4.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^6.3.3",
+    "multer": "^1.4.4-lts.1",
+    "nodemon": "^2.0.15",
+    "prettier-eslint-cli": "^6.0.1",
+    "swagger-autogen": "^2.21.2",
+    "swagger-ui-express": "^4.4.0",
+    "xlsx": "^0.18.5",
+    "yup": "^0.32.11",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^12.4.1"
+  }
+}
