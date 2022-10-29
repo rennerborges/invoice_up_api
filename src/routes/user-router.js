@@ -11,10 +11,10 @@ const router = express.Router();
 
 router.post('/login', ValidatorLogin, authController.login);
 
-router.get('/users', Auth('u'), userController.getUsers);
+router.get('/users', Auth('a'), userController.getUsers);
 router.get('/user/:email', Auth('u'), userController.getUser);
-router.post('/user', Auth('u'), ValidationUserPost, userController.createUser);
+router.post('/user', ValidationUserPost, userController.createUser);
 router.patch('/user', Auth('u'), ValidationUserEdit, userController.updateUser);
-router.delete('/user/:id', Auth('u'), userController.deleteUser);
+router.delete('/user/:id', Auth('a'), userController.deleteUser);
 
 export default router;
