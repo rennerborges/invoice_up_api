@@ -85,6 +85,7 @@ const doc = {
         title: 'Xbox One',
         placeOfPurchase: 'Americanas',
         dateOfPurchase: new Date().toISOString(),
+        emailUser: 'renner@gmail.com',
         price: 1000,
         image: '',
       },

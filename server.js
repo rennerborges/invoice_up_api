@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
+import bodyParser from 'body-parser';
 import ConnectionDB from './config/connection-database';
 import swaggerFile from './swagger/swagger_output.json';
 import app from './app';
@@ -24,8 +25,13 @@ ConnectionDB();
 // ===========================================
 
 server.use(cors());
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
+server.use(
+  bodyParser.urlencoded({
+    limit: '100000mb',
+    extended: true,
+  }),
+);
+server.use(bodyParser.json({ limit: '100000mb' }));
 server.use(logger('dev'));
 server.use('/images', express.static('public/images'));
 

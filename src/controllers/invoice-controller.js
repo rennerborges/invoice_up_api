@@ -41,6 +41,24 @@ export const getInvoices = async (req, res) => {
   });
 };
 
+export const getInvoicesByUser = async (req, res, next) => {
+  /* #swagger.tags = ["Notas fiscais"] */
+  /* #swagger.description = "Rota responsável por trazer todos as notas fiscais de um determinado usuário" */
+  try {
+    const emailUser = req.user.email;
+
+    const invoices = await InvoiceModel.find({
+      emailUser,
+    }).sort({ updatedAt: -1, createdAt: -1 });
+
+    res.json({
+      invoices,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createInvoice = async (req, res, next) => {
   /* #swagger.tags = ["Notas fiscais"] */
   /* #swagger.description = "Rota responsável por criar a nota fiscal" */
@@ -56,15 +74,18 @@ export const createInvoice = async (req, res, next) => {
   const { body } = req;
 
   try {
-    const bodyInvoice = removeValueUndefinedOrNull({
+    const bodyInvoice = {
       title: body.title,
       placeOfPurchase: body.placeOfPurchase,
       dateOfPurchase: body.dateOfPurchase,
       dateOfWarranty: body.dateOfWarranty || null,
+      emailUser: body.emailUser,
       price: body.price,
       image: body.image,
       enabled: true,
-    });
+      createdAt: new Date(),
+      updatedAt: null,
+    };
 
     const invoice = new InvoiceModel(bodyInvoice);
 
@@ -109,6 +130,7 @@ export const updateInvoice = async (req, res, next) => {
       dateOfWarranty: body.dateOfWarranty || null,
       price: body.price,
       image: body.image,
+      updatedAt: new Date(),
     });
 
     const invoice = await InvoiceModel.findOneAndUpdate(
@@ -164,6 +186,7 @@ export const deleteInvoice = async (req, res, next) => {
 export default {
   getInvoice,
   getInvoices,
+  getInvoicesByUser,
   createInvoice,
   updateInvoice,
   deleteInvoice,

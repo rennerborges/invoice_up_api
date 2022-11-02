@@ -23,6 +23,17 @@ const modelSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Image is required'],
   },
+  emailUser: {
+    type: String,
+    required: [true, 'Email user is required'],
+  },
+  createdAt: {
+    type: Date,
+    required: [true, 'CreatedAt is required'],
+  },
+  updatedAt: {
+    type: Date,
+  },
   enabled: Boolean,
 });
 

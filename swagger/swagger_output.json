@@ -360,6 +360,26 @@
           }
         }
       }
+    },
+    "/invoice/my": {
+      "get": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por trazer todos as notas fiscais de um determinado usuário",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -446,7 +466,11 @@
           },
           "dateOfPurchase": {
             "type": "string",
-            "example": "2022-11-01T23:59:46.085Z"
+            "example": "2022-11-02T21:45:50.261Z"
+          },
+          "emailUser": {
+            "type": "string",
+            "example": "renner@gmail.com"
           },
           "price": {
             "type": "number",
