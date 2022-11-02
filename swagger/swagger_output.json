@@ -21,12 +21,12 @@
       "description": "Responsável por todo gerenciamento da autenticação no software"
     },
     {
-      "name": "Usuários",
-      "description": "Responsável pelo gerenciamento dos usuários"
+      "name": "Notas fiscais",
+      "description": "Responsável pelo gerenciamento das notas fiscais"
     },
     {
-      "name": "Objetos",
-      "description": "Responsável pelo gerenciamento dos objetos"
+      "name": "Usuários",
+      "description": "Responsável pelo gerenciamento dos usuários"
     }
   ],
   "paths": {
@@ -136,12 +136,6 @@
         "responses": {
           "201": {
             "description": "Criado"
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "403": {
-            "description": "Acesso Negado"
           }
         },
         "requestBody": {
@@ -202,6 +196,153 @@
               "type": "string"
             },
             "description": "ID da empresa"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "404": {
+            "description": "Não Encontrado"
+          }
+        }
+      }
+    },
+    "/invoice/": {
+      "get": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por trazer todos as notas fiscais",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por criar a nota fiscal",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Criado"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostInvoice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoice/{id}": {
+      "get": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por trazer uma nota fiscal específica pelo e-mail do mesmo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identificação da nota fiscal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "404": {
+            "description": "Não Encontrado"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por atualizar uma nota fiscal utilizando seu ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identificação da nota fiscal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "404": {
+            "description": "Não Encontrado"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditInvoice"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por desativar uma nota fiscal utilizando seu ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identificação da nota fiscal"
           }
         ],
         "responses": {
@@ -292,1181 +433,41 @@
           }
         }
       },
-      "PostObject": {
+      "PostInvoice": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string",
-            "example": "Mesa"
+            "example": "Xbox One"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "definitions": {
-                "type": "object",
-                "properties": {
-                  "JSON_VR": {
-                    "type": "object",
-                    "properties": {
-                      "title": {
-                        "type": "string",
-                        "example": "JSON_VR"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "library": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "instances": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.instance"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "relations": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.relation"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "specifications": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.specification"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.instance": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "model": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "orientation": {
-                            "$ref": "#/components/schemas/content.orientation"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.relation": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "is_directional": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "boolean"
-                              }
-                            }
-                          },
-                          "targets": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/components/schemas/content.target"
-                                }
-                              }
-                            }
-                          },
-                          "body": {
-                            "$ref": "#/components/schemas/content.rel_body"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.specification": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "attributes": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/content.attribute"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "target_points": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/content.target_point"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.orientation": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "position": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "example": "number"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "rotation": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "example": "number"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.target": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "target_point": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.rel_body": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "is_implicity": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "boolean"
-                              }
-                            }
-                          },
-                          "model": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.attribute": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "type_unit": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "value": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.target_point": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "orientation": {
-                            "$ref": "#/components/schemas/content.orientation"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "placeOfPurchase": {
+            "type": "string",
+            "example": "Americanas"
           },
-          "model": {
-            "type": "object",
-            "properties": {
-              "library": {
-                "type": "string",
-                "example": "Models/"
-              },
-              "instances": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "model": {
-                      "type": "string",
-                      "example": "disjuntor_gas_t1"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "djt1_04"
-                    },
-                    "orientation": {
-                      "type": "object",
-                      "properties": {
-                        "position": {
-                          "type": "array",
-                          "example": [
-                            -6,
-                            0,
-                            12
-                          ],
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "rotation": {
-                          "type": "array",
-                          "example": [
-                            0,
-                            0,
-                            0
-                          ],
-                          "items": {
-                            "type": "number"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "relations": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "is_directional": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "targets": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "string",
-                            "example": "djt1_04"
-                          },
-                          "target_point": {
-                            "type": "string",
-                            "example": "tg_01"
-                          }
-                        }
-                      }
-                    },
-                    "body": {
-                      "type": "object",
-                      "properties": {
-                        "is_implicity": {
-                          "type": "boolean",
-                          "example": true
-                        },
-                        "model": {}
-                      }
-                    }
-                  }
-                }
-              },
-              "specifications": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "instance_name": {
-                      "type": "string",
-                      "example": "djt1_04"
-                    },
-                    "attributes": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "Capacidade de Interrupção"
-                          },
-                          "type_unit": {
-                            "type": "string",
-                            "example": "kA"
-                          },
-                          "value": {
-                            "type": "string",
-                            "example": "0"
-                          }
-                        }
-                      }
-                    },
-                    "target_points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "tg_02"
-                          },
-                          "orientation": {
-                            "type": "object",
-                            "properties": {
-                              "position": {
-                                "type": "array",
-                                "example": [
-                                  0,
-                                  9,
-                                  0
-                                ],
-                                "items": {
-                                  "type": "number"
-                                }
-                              },
-                              "rotation": {
-                                "type": "array",
-                                "example": [
-                                  0,
-                                  0,
-                                  0
-                                ],
-                                "items": {
-                                  "type": "number"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "dateOfPurchase": {
+            "type": "string",
+            "example": "2022-11-01T23:59:46.085Z"
+          },
+          "price": {
+            "type": "number",
+            "example": 1000
+          },
+          "image": {
+            "type": "string",
+            "example": ""
           }
         }
       },
-      "EditObject": {
+      "EditInvoice": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string",
-            "example": "Mesa 2"
+            "example": "Xbox One X"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "definitions": {
-                "type": "object",
-                "properties": {
-                  "JSON_VR": {
-                    "type": "object",
-                    "properties": {
-                      "title": {
-                        "type": "string",
-                        "example": "JSON_VR"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "library": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "instances": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.instance"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "relations": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.relation"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "specifications": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/reference.specification"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.instance": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "model": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "orientation": {
-                            "$ref": "#/components/schemas/content.orientation"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.relation": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "is_directional": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "boolean"
-                              }
-                            }
-                          },
-                          "targets": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/components/schemas/content.target"
-                                }
-                              }
-                            }
-                          },
-                          "body": {
-                            "$ref": "#/components/schemas/content.rel_body"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "reference.specification": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "attributes": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/content.attribute"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          },
-                          "target_points": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "$ref": "#/components/schemas/content.target_point"
-                              },
-                              "minItems": {
-                                "type": "number",
-                                "example": 0
-                              },
-                              "additionalItems": {
-                                "type": "boolean",
-                                "example": true
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.orientation": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "position": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "example": "number"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "rotation": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "array"
-                              },
-                              "items": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "example": "number"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.target": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "target_point": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.rel_body": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "is_implicity": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "boolean"
-                              }
-                            }
-                          },
-                          "model": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.attribute": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "type_unit": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "value": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "content.target_point": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "object"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          },
-                          "orientation": {
-                            "$ref": "#/components/schemas/content.orientation"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "model": {
-            "type": "object",
-            "properties": {
-              "library": {
-                "type": "string",
-                "example": "Models/"
-              },
-              "instances": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "model": {
-                      "type": "string",
-                      "example": "disjuntor_gas_t1"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "djt1_04"
-                    },
-                    "orientation": {
-                      "type": "object",
-                      "properties": {
-                        "position": {
-                          "type": "array",
-                          "example": [
-                            -6,
-                            0,
-                            12
-                          ],
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "rotation": {
-                          "type": "array",
-                          "example": [
-                            0,
-                            0,
-                            0
-                          ],
-                          "items": {
-                            "type": "number"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "relations": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "is_directional": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "targets": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instance_name": {
-                            "type": "string",
-                            "example": "djt1_04"
-                          },
-                          "target_point": {
-                            "type": "string",
-                            "example": "tg_01"
-                          }
-                        }
-                      }
-                    },
-                    "body": {
-                      "type": "object",
-                      "properties": {
-                        "is_implicity": {
-                          "type": "boolean",
-                          "example": true
-                        },
-                        "model": {}
-                      }
-                    }
-                  }
-                }
-              },
-              "specifications": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "instance_name": {
-                      "type": "string",
-                      "example": "djt1_04"
-                    },
-                    "attributes": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "Capacidade de Interrupção"
-                          },
-                          "type_unit": {
-                            "type": "string",
-                            "example": "kA"
-                          },
-                          "value": {
-                            "type": "string",
-                            "example": "0"
-                          }
-                        }
-                      }
-                    },
-                    "target_points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "tg_02"
-                          },
-                          "orientation": {
-                            "type": "object",
-                            "properties": {
-                              "position": {
-                                "type": "array",
-                                "example": [
-                                  0,
-                                  9,
-                                  0
-                                ],
-                                "items": {
-                                  "type": "number"
-                                }
-                              },
-                              "rotation": {
-                                "type": "array",
-                                "example": [
-                                  0,
-                                  0,
-                                  0
-                                ],
-                                "items": {
-                                  "type": "number"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "price": {
+            "type": "number",
+            "example": 1500
           }
         }
       }

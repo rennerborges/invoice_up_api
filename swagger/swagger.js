@@ -3,9 +3,6 @@ const dotenv = require('dotenv');
 const swaggerOptions = require('./swagger-autogen.options');
 const swaggerAutogen = require('swagger-autogen')(swaggerOptions);
 
-const modelObject = require('./jsons/model-object.json');
-const schemaObject = require('./jsons/schema-object.json');
-
 dotenv.config({ path: './variables.env' });
 
 const outputFile = './swagger/swagger_output.json';
@@ -40,12 +37,12 @@ const doc = {
         'Responsável por todo gerenciamento da autenticação no software',
     },
     {
-      name: 'Usuários',
-      description: 'Responsável pelo gerenciamento dos usuários',
+      name: 'Notas fiscais',
+      description: 'Responsável pelo gerenciamento das notas fiscais',
     },
     {
-      name: 'Objetos',
-      description: 'Responsável pelo gerenciamento dos objetos',
+      name: 'Usuários',
+      description: 'Responsável pelo gerenciamento dos usuários',
     },
   ],
   securityDefinitions: {
@@ -84,15 +81,16 @@ const doc = {
         email: 'renner@gmail.com',
         password: '12345678@Re',
       },
-      PostObject: {
-        name: 'Mesa',
-        data: schemaObject,
-        model: modelObject,
+      PostInvoice: {
+        title: 'Xbox One',
+        placeOfPurchase: 'Americanas',
+        dateOfPurchase: new Date().toISOString(),
+        price: 1000,
+        image: '',
       },
-      EditObject: {
-        name: 'Mesa 2',
-        data: schemaObject,
-        model: modelObject,
+      EditInvoice: {
+        title: 'Xbox One X',
+        price: 1500,
       },
     },
   },
