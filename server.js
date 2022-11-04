@@ -6,6 +6,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import axios from 'axios';
 import ConnectionDB from './config/connection-database';
 import swaggerFile from './swagger/swagger_output.json';
 import app from './app';
@@ -48,5 +49,16 @@ server.use(
 // ===========================================
 
 server.use('/', app);
+
+setInterval(() => {
+  axios
+    .get('https://invoice-up.herokuapp.com')
+    .then(() => {
+      console.log('[Servidor] Está tudo ok!');
+    })
+    .catch(() => {
+      console.log('[Error] Não conseguimos resposta do servidor!');
+    });
+}, 60000 * 5);
 
 module.exports = server;

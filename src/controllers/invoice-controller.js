@@ -1,4 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable max-len */
+import moment from 'moment';
 import mongoose from 'mongoose';
 import InvoiceModel from '../models/invoice';
 import { removeValueUndefinedOrNull } from '../util/object';
@@ -47,10 +49,20 @@ export const getInvoicesByUser = async (req, res, next) => {
   try {
     const emailUser = req.user.email;
 
-    const invoices = await InvoiceModel.find({
+    let invoices = await InvoiceModel.find({
       emailUser,
     }).sort({ updatedAt: -1, createdAt: -1 });
 
+    invoices = invoices.map((invoice) => ({
+      ...invoice._doc,
+      image: '',
+      isWarranty: moment().isBetween(
+        invoice.dateOfPurchase,
+        invoice.dateOfWarranty,
+        undefined,
+        '[]',
+      ),
+    }));
     res.json({
       invoices,
     });

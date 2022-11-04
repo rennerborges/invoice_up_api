@@ -13,6 +13,10 @@
     {
       "url": "http://localhost:7780",
       "description": "Local"
+    },
+    {
+      "url": "https://invoice-up.herokuapp.com/",
+      "description": "Production"
     }
   ],
   "tags": [
@@ -242,6 +246,12 @@
         "responses": {
           "201": {
             "description": "Criado"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
           }
         },
         "requestBody": {
@@ -252,6 +262,26 @@
                 "$ref": "#/components/schemas/PostInvoice"
               }
             }
+          }
+        }
+      }
+    },
+    "/invoice/my": {
+      "get": {
+        "tags": [
+          "Notas fiscais"
+        ],
+        "description": "Rota responsável por trazer todos as notas fiscais de um determinado usuário",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado"
+          },
+          "403": {
+            "description": "Acesso Negado"
           }
         }
       }
@@ -360,26 +390,6 @@
           }
         }
       }
-    },
-    "/invoice/my": {
-      "get": {
-        "tags": [
-          "Notas fiscais"
-        ],
-        "description": "Rota responsável por trazer todos as notas fiscais de um determinado usuário",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Não autorizado"
-          },
-          "403": {
-            "description": "Acesso Negado"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -466,7 +476,7 @@
           },
           "dateOfPurchase": {
             "type": "string",
-            "example": "2022-11-02T21:45:50.261Z"
+            "example": "2022-11-04T13:39:33.095Z"
           },
           "emailUser": {
             "type": "string",

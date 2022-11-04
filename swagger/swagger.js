@@ -25,6 +25,7 @@ const doc = {
       url: `http://localhost:${process.env.PORT}`,
       description: 'Local',
     },
+    { url: 'https://invoice-up.herokuapp.com/', description: 'Production' },
   ],
   basePath: '/',
   schemes: ['http', 'https'],
