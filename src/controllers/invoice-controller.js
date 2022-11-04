@@ -55,7 +55,6 @@ export const getInvoicesByUser = async (req, res, next) => {
 
     invoices = invoices.map((invoice) => ({
       ...invoice._doc,
-      image: '',
       isWarranty: moment().isBetween(
         invoice.dateOfPurchase,
         invoice.dateOfWarranty,
