@@ -51,6 +51,7 @@ export const getInvoicesByUser = async (req, res, next) => {
 
     let invoices = await InvoiceModel.find({
       emailUser,
+      enabled: true,
     }).sort({ updatedAt: -1, createdAt: -1 });
 
     invoices = invoices.map((invoice) => ({
