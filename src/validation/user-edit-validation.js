@@ -1,15 +1,8 @@
-import mongoose from 'mongoose';
 import * as yup from 'yup';
 import { isValidPassword } from '../util/password';
 
 const ValidationUserEdit = (req, res, next) => {
   const schema = yup.object().shape({
-    id: yup
-      .string()
-      .required('O id do usuário é necessário')
-      .test('is-id-mongo', 'Informe um user id válido', (value) =>
-        mongoose.Types.ObjectId.isValid(value),
-      ),
     name: yup.string(),
     password: yup
       .string()

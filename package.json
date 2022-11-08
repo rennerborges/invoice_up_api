@@ -7,7 +7,8 @@
     "start": "nodemon --exec babel-node ./bin/www",
     "lint:fix": "eslint --fix --ext .js, src",
     "prepare": "husky install",
-    "swagger-autogen": "node ./swagger/swagger.js"
+    "swagger-autogen": "node ./swagger/swagger.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,7 @@
   "homepage": "https://github.com/rennerborges/wtmi_api#readme",
   "dependencies": {
     "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.20.2",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
@@ -52,6 +53,9 @@
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "babel-eslint": "^10.1.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -59,6 +63,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.0",
-    "lint-staged": "^12.4.1"
+    "lint-staged": "^12.4.1",
+    "mocha": "^10.1.0"
   }
 }
