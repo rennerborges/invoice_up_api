@@ -41,7 +41,7 @@ export const login = async (req, res) => {
   };
 
   const token = jwt.sign(bodyToken, process.env.SECRET, {
-    expiresIn: 3 * 60 * 60, // expires in 3h
+    expiresIn: 30 * 24 * 60 * 60, // expires in 1 mounth
   });
 
   res.status(200).json({
